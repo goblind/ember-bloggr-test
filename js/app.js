@@ -3,36 +3,67 @@ App = Ember.Application.create({
     loadTemplates('hbs/posts.hbs'),
     loadTemplates('hbs/post.hbs'),
     loadTemplates('hbs/about.hbs'),
-    loadTemplates('hbs/post__edit.hbs')
+    loadTemplates('hbs/post__edit.hbs'),
+    loadTemplates('hbs/posts_new.hbs')
   }
 });
+
+ App.ApplicationAdapter = DS.LSAdapter.extend({
+     namespace: 'model-emberjs'
+ });
+
+ App.ApplicationAdapter = DS.LSAdapter;
+
+//localStorage.clear();
 
 App.Router.map(function() {
   this.resource('about');
   this.resource('posts', function() {
+    this.route('new');
     this.resource('post', { path: ':post_id' });
   });
 });
 
-App.PostsRoute = Ember.Route.extend({
+App.PostsNewRoute = Ember.Route.extend({
   model: function() {
-    return posts;
+    return this.get('store').createRecord('post');
   },
+  actions: {
+    doneEditing: function() {      
+      /*debugger;
+      if (typeof this.title == 'undefined') {
+      //if(typeof obj !== "undefined")  
+        this.title = 'hola';
+      }*/
+      this.modelFor('postsNew').save();
+      this.transitionTo('posts.index');
+    }
+  }
+});
 
-  events: {
-    createPost: function(){
-      var posts = this.modelFor('posts');
-      var post = posts.pushObject({
-        id: posts.length
-      });
-      this.transitionTo('/edit', post);
-    }    
+App.Post = DS.Model.extend({
+  title: DS.attr('string'),
+  author: DS.attr('string'),
+  date: DS.attr('date', { defaultValue: new Date() }),  
+  excerpt: DS.attr('string'),
+  body: DS.attr('string')
+});
+
+App.PostsRoute = Ember.Route.extend({
+  model: function() {    
+    return this.get('store').find('post');
+  },
+  actions: {
+    doneEditing: function() {           
+      this.controllerFor('post').send('finishedEditing');      
+      this.get('controller.model').save();  
+    }
   }
 });
 
 App.PostRoute = Ember.Route.extend({
   model: function(params) {
-    return posts.findBy('id', params.post_id);
+    return this.get('store').find('post', params.post_id);
   }
 });
 
@@ -41,9 +72,18 @@ App.PostController = Ember.ObjectController.extend({
   edit: function() {
     this.set('isEditing', true);
   },
-  doneEditing: function() {
-    this.set('isEditing', false);
-    this.get('store').commit();
+  finishedEditing: function() {
+    this.set('isEditing', false);          
+  },
+  deleteRecord: function() {        
+    if ($('#btnDelete').text() == 'Delete') 
+      $('#btnDelete').text('You Sure?');      
+    else  {      
+      var post = this.get('model');
+      post.deleteRecord();
+      post.save();      
+      this.transitionTo('posts.index');
+    }  
   }
 });
 
@@ -54,6 +94,8 @@ Ember.Handlebars.helper('format-markdown', function(input) {
 });
 
 Ember.Handlebars.helper('format-date', function(date) {
-  return moment(date).fromNow();
+  if (date) {
+    return moment(date).fromNow();
+  }
 });
 

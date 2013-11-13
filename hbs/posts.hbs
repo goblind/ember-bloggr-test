@@ -3,12 +3,12 @@
     <div class="span3">
       <table class='table'>        
         <thead>
-          <tr><th><a href="#" {{action createPost}}>New Post</a></th></tr>
+          <tr><th>{{#link-to 'posts.new'}}New Post{{/link-to}}</th></tr>
           <tr><th>Recent Posts</th></tr>
         </thead>
         {{#each model}}
         <tr><td>
-            {{#link-to 'post' this}}{{title}} <small class='muted'>by {{author.name}}</small>{{/link-to}}
+            {{#link-to 'post' this}}{{title}} <small class='muted'>by {{author}}</small>{{/link-to}}            
         </td></tr>
         {{/each}}
       </table>
