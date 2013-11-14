@@ -1,9 +1,13 @@
 {{!-- <p>{{input type="text" value=title}}</p>
 <p>{{input type="text" value=excerpt}}</p>
 <p>{{textarea value=body}}</p> --}}
-
-<p>{{input type="text" value=title placeholder="Title"}}</p>
-<p>{{input type="text" value=author  placeholder="Author"}}</p>
-<p>{{input type="text" value=excerpt  placeholder="Excerpt"}}</p>    
-<p>{{textarea value=body  placeholder="Body"}}</p>
-<button class="btn btn-default"  {{action 'doneEditing'}}>Done</button>
+<div id="editPost">
+	<div class="control-group">
+		<p>{{input type="text" id="inputError" value=title placeholder="Title"}}</p>
+	</div>		
+	<p>{{input type="text" value=author  placeholder="Author"}}</p>
+	<p>{{input type="text" value=excerpt  placeholder="Excerpt"}}</p>    
+	<p>{{textarea class="form-control" value=body  placeholder="Body"}}</p>
+	<button class="btn btn-default"  {{action 'doneEditing'}}>Done</button>
+	<button class="btn btn-default"  {{action 'cancelEditing'}}>Cancel</button>
+</div>

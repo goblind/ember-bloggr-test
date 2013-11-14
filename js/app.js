@@ -29,13 +29,18 @@ App.PostsNewRoute = Ember.Route.extend({
     return this.get('store').createRecord('post');
   },
   actions: {
-    doneEditing: function() {      
-      /*debugger;
-      if (typeof this.title == 'undefined') {
-      //if(typeof obj !== "undefined")  
-        this.title = 'hola';
-      }*/
-      this.modelFor('postsNew').save();
+    doneEditing: function() {                  
+      var model = this.modelFor('postsNew');
+      if(validatePost(model)) {
+        model.save();
+        this.transitionTo('posts.index');
+      }
+      else
+        debugger;
+        //$(div);
+        alert('Datos incompletos');      
+    },
+    cancelEditing: function() {
       this.transitionTo('posts.index');
     }
   }
@@ -62,14 +67,14 @@ App.PostsRoute = Ember.Route.extend({
 });
 
 App.PostRoute = Ember.Route.extend({
-  model: function(params) {
+  model: function(params) {    
     return this.get('store').find('post', params.post_id);
   }
 });
 
 App.PostController = Ember.ObjectController.extend({
   isEditing: false,
-  edit: function() {
+  edit: function() {    
     this.set('isEditing', true);
   },
   finishedEditing: function() {
@@ -98,4 +103,5 @@ Ember.Handlebars.helper('format-date', function(date) {
     return moment(date).fromNow();
   }
 });
+
 
