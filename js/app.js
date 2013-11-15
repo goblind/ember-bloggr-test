@@ -39,56 +39,41 @@ App.PostsNewRoute = Ember.Route.extend({
   actions: {    
     doneEditing: function() {                                  
       var model = this.modelFor('postsNew');
-      var title = model.get('title');
+      //var title = model.get('title');      
       if (validatePost(model)) {
         model.save();
         this.transitionTo('posts.index');
       }      
     },
     cancelEditing: function() {
+      debugger;      
+      var model = this.modelFor('postsNew');
+      model.set('title', 'err');
+      model.save();
+      //model.deleteRecord();
+      this.controllerFor('Post').deleteRecord();
       this.transitionTo('posts.index');
     }
   }
 });
 
-App.PostsNewController = Ember.ObjectController.extend({      
-                        checkFocus: function() {
-                            $('#titleInput').focus(function() {
-                              alert('hola');
-                              if( $(this).val() == 'Title needed' ) {
-                                  $(this).animate({color:'white'}, 1000, function() {
-                                      $(this).val('').css('color','#333333');
-                                  });
-                              }
-                            })
-                            .blur(function() {
-                                if( $(this).is(':animated') ) {
-                                    $(this).stop().css('color','#b94a48');
-                                }
-                                if( $(this).val() == '' ) {
-                                    $(this).val('Title needed');
-                                }
-                              });
-                          },
-                            
-
-
-    validateTitle: function() {
-      var title = this.get('title');
-      return title ? '' :  'error';
-    }.property('title'),
-    validateAuthor: function() {
-      var author = this.get('author');
-      return author ? '' :  'error';
-    }.property('author'),  
-    validateExcerpt: function() {
-      var excerpt = this.get('excerpt');
-      return excerpt ? '' :  'error';
-    }.property('excerpt'),
-    validateBody: function() {
-      var body = this.get('body');
-      return body ? '' :  'error';
-    }.property('body')
+App.PostsNewController = Ember.ObjectController.extend({   
+  validateTitle: function() {
+    var title = this.get('title');
+    return title ? '' :  'error';
+  }.property('title'),
+  validateAuthor: function() {
+    var author = this.get('author');
+    return author ? '' :  'error';
+  }.property('author'),  
+  validateExcerpt: function() {
+    var excerpt = this.get('excerpt');
+    return excerpt ? '' :  'error';
+  }.property('excerpt'),
+  validateBody: function() {
+    var body = this.get('body');
+    return body ? '' :  'error';
+  }.property('body')
 });
 
 App.PostsRoute = Ember.Route.extend({
@@ -117,11 +102,15 @@ App.PostController = Ember.ObjectController.extend({
   finishedEditing: function() {
     this.set('isEditing', false);          
   },
-  deleteRecord: function() {        
+  deleteRecord: function() {   
+  debugger;      
     if ($('#btnDelete').text() == 'Delete') 
       $('#btnDelete').text('You Sure?');      
     else  {      
       var post = this.get('model');
+      /*if (Ember.empty(post)) {
+        post = 
+      }*/
       post.deleteRecord();
       post.save();      
       this.transitionTo('posts.index');

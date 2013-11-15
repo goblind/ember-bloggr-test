@@ -10,3 +10,7 @@ html, body {
 .normalText {
 	color: #333333;
 }
+
+.spanValidate span {	
+	display: inline;
+}
