@@ -1,9 +1,9 @@
-App = Ember.Application.create({
+App = Ember.Application.create({  
   ready: function(){
     loadTemplates('hbs/posts.hbs'),
     loadTemplates('hbs/post.hbs'),
     loadTemplates('hbs/about.hbs'),
-    loadTemplates('hbs/post__edit.hbs'),
+    loadTemplates('hbs/post_edit.hbs'),
     loadTemplates('hbs/posts_new.hbs')
   }
 });
@@ -24,21 +24,26 @@ App.Router.map(function() {
   });
 });
 
+App.Post = DS.Model.extend({
+  title: DS.attr('string'),
+  author: DS.attr('string'),
+  date: DS.attr('date', { defaultValue: new Date() }),  
+  excerpt: DS.attr('string'),
+  body: DS.attr('string')
+});
+
 App.PostsNewRoute = Ember.Route.extend({
   model: function() {
     return this.get('store').createRecord('post');
   },
-  actions: {
-    doneEditing: function() {                  
+  actions: {    
+    doneEditing: function() {                                  
       var model = this.modelFor('postsNew');
-      if(validatePost(model)) {
+      var title = model.get('title');
+      if (validatePost(model)) {
         model.save();
         this.transitionTo('posts.index');
-      }
-      else
-        debugger;
-        //$(div);
-        alert('Datos incompletos');      
+      }      
     },
     cancelEditing: function() {
       this.transitionTo('posts.index');
@@ -46,12 +51,44 @@ App.PostsNewRoute = Ember.Route.extend({
   }
 });
 
-App.Post = DS.Model.extend({
-  title: DS.attr('string'),
-  author: DS.attr('string'),
-  date: DS.attr('date', { defaultValue: new Date() }),  
-  excerpt: DS.attr('string'),
-  body: DS.attr('string')
+App.PostsNewController = Ember.ObjectController.extend({      
+                        checkFocus: function() {
+                            $('#titleInput').focus(function() {
+                              alert('hola');
+                              if( $(this).val() == 'Title needed' ) {
+                                  $(this).animate({color:'white'}, 1000, function() {
+                                      $(this).val('').css('color','#333333');
+                                  });
+                              }
+                            })
+                            .blur(function() {
+                                if( $(this).is(':animated') ) {
+                                    $(this).stop().css('color','#b94a48');
+                                }
+                                if( $(this).val() == '' ) {
+                                    $(this).val('Title needed');
+                                }
+                              });
+                          },
+                            
+
+
+    validateTitle: function() {
+      var title = this.get('title');
+      return title ? '' :  'error';
+    }.property('title'),
+    validateAuthor: function() {
+      var author = this.get('author');
+      return author ? '' :  'error';
+    }.property('author'),  
+    validateExcerpt: function() {
+      var excerpt = this.get('excerpt');
+      return excerpt ? '' :  'error';
+    }.property('excerpt'),
+    validateBody: function() {
+      var body = this.get('body');
+      return body ? '' :  'error';
+    }.property('body')
 });
 
 App.PostsRoute = Ember.Route.extend({
@@ -72,8 +109,8 @@ App.PostRoute = Ember.Route.extend({
   }
 });
 
-App.PostController = Ember.ObjectController.extend({
-  isEditing: false,
+App.PostController = Ember.ObjectController.extend({     
+  isEditing: false,  
   edit: function() {    
     this.set('isEditing', true);
   },
@@ -88,7 +125,7 @@ App.PostController = Ember.ObjectController.extend({
       post.deleteRecord();
       post.save();      
       this.transitionTo('posts.index');
-    }  
+    }    
   }
 });
 
@@ -103,5 +140,4 @@ Ember.Handlebars.helper('format-date', function(date) {
     return moment(date).fromNow();
   }
 });
-
 

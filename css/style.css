@@ -2,3 +2,11 @@
 html, body {
     margin: 20px;
 }
+
+.errorText {
+	color: #b94a48;
+}
+
+.normalText {
+	color: #333333;
+}

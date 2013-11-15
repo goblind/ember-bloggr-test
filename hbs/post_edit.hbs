@@ -1,0 +1,19 @@
+<div {{bind-attr class=":control-group validateTitle"}}>   
+	<p>{{input type="text" id="titleInput" value=title placeholder="Title"}}
+	<label id="lblTitle"></label>
+	</p>
+</div>
+<div {{bind-attr class=":control-group validateAuthor"}}>
+	<p>{{input type="text" id="authorInput" value=author  placeholder="Author"}}
+		<span id="authorSpan">Ingrese su nombre.</span>
+	</p>
+</div>
+<div {{bind-attr class=":control-group validateExcerpt"}}>
+	<p>{{input type="text" id="excerptInput" value=excerpt  placeholder="Excerpt"}}</p>    
+</div>
+<div {{bind-attr class=":control-group validateBody"}}>
+	<p>{{textarea id="bodyInput" value=body  placeholder="Body"}}</p>
+</div>
+<button class="btn btn-default"  {{action 'doneEditing'}}>Done</button>
+<button class="btn btn-default"  {{action 'cancelEditing'}}>Cancel</button>
+
