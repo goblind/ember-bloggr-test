@@ -38,20 +38,14 @@ App.PostsNewRoute = Ember.Route.extend({
   },
   actions: {    
     doneEditing: function() {                                  
-      var model = this.modelFor('postsNew');
-      //var title = model.get('title');      
+      var model = this.modelFor('postsNew');        
       if (validatePost(model)) {
         model.save();
         this.transitionTo('posts.index');
       }      
     },
-    cancelEditing: function() {
-      debugger;      
-      var model = this.modelFor('postsNew');
-      model.set('title', 'err');
-      model.save();
-      //model.deleteRecord();
-      this.controllerFor('Post').deleteRecord();
+    cancelEditing: function() {            
+      this.get('controller.model').deleteRecord()            
       this.transitionTo('posts.index');
     }
   }
@@ -84,6 +78,9 @@ App.PostsRoute = Ember.Route.extend({
     doneEditing: function() {           
       this.controllerFor('post').send('finishedEditing');      
       this.get('controller.model').save();  
+    },
+    cancelEditing: function() {      
+      this.transitionTo('posts.index');
     }
   }
 });
@@ -103,14 +100,11 @@ App.PostController = Ember.ObjectController.extend({
     this.set('isEditing', false);          
   },
   deleteRecord: function() {   
-  debugger;      
+    //debugger;      
     if ($('#btnDelete').text() == 'Delete') 
       $('#btnDelete').text('You Sure?');      
     else  {      
-      var post = this.get('model');
-      /*if (Ember.empty(post)) {
-        post = 
-      }*/
+      var post = this.get('model');      
       post.deleteRecord();
       post.save();      
       this.transitionTo('posts.index');
