@@ -23,8 +23,7 @@ function outputWarning(control) {
 	control += 'Input';
 	control = '#' + control
 	var _this = $(control);
-	//_this.attr('placeholder', 'Required');
-	//_this.focus();
+	//_this.attr('placeholder', 'Required');	
 	_this.next('span').text('Required').css('display', 'inline').fadeOut(2000);	
 }
 
