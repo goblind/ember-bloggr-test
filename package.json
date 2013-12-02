@@ -1,0 +1,18 @@
+{
+  "name": "bloggr",
+  "version": "0.0.1",
+  "description": "bloggr for internal use",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/goblind/ember-bloggr-test.git"
+  },
+  "author": "goblind (based on bloggr by ember.js team)",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "async": "~0.2.8",
+    "express": "~3.2.4",
+    "socket.io": "~0.9.14",
+    "mongoose": "~3.8.1"
+  }
+}
