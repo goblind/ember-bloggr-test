@@ -1,5 +1,5 @@
-App = Ember.Application.create({  
-  ready: function(){
+App = Ember.Application.create({      
+  ready: function(){            
     loadTemplates('hbs/posts.hbs'),
     loadTemplates('hbs/post.hbs'),
     loadTemplates('hbs/about.hbs'),
@@ -7,8 +7,12 @@ App = Ember.Application.create({
     loadTemplates('hbs/posts_new.hbs'),
     loadTemplates('hbs/projects.hbs'),
     loadTemplates('hbs/projects.hbs'),
-    loadTemplates('hbs/project.hbs')
-  }
+    loadTemplates('hbs/project.hbs'),    
+    loadTemplates('hbs/project_info.hbs'),
+    loadTemplates('hbs/project_notes.hbs'),
+    loadTemplates('hbs/project_edit.hbs'),
+    loadTemplates('hbs/projects_new.hbs')
+  }  
 });
 
  App.ApplicationAdapter = DS.LSAdapter.extend({

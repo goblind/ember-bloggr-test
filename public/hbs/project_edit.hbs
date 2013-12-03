@@ -1,0 +1,14 @@
+<div>   
+	<p>{{input type="text" id="titleInput" value=title placeholder="Title"}}
+		<span></span>
+	</p>
+</div>
+<div>
+	<p>{{input type="text" id="noteInput" value=note  placeholder="Note"}}
+		<span></span>
+	</p>
+</div>
+
+<button class="btn btn-default"  {{action 'doneEditing'}}>Done</button>
+<button class="btn btn-default"  {{action 'cancelEditing'}}>Cancel</button>
+
