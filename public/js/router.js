@@ -101,15 +101,3 @@ App.ProjectInfoRoute = Ember.Route.extend({
   model: function(params) {    
   }
 });
-
-var projects = [{
-  id: '1',
-  title: "Kupert",
-  date: new Date('12-27-2012'),
-  note: "node.js is something like well you can't figure it out ultil you get your hands on it."
-}, {
-  id: '2',
-  title: "Contador",
-  date: new Date('12-27-2012'),
-  note: "this way you can understand a couple of things." 
-}];

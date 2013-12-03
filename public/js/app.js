@@ -11,7 +11,8 @@ App = Ember.Application.create({
     loadTemplates('hbs/project_info.hbs'),
     loadTemplates('hbs/project_notes.hbs'),
     loadTemplates('hbs/project_edit.hbs'),
-    loadTemplates('hbs/projects_new.hbs')
+    loadTemplates('hbs/projects_new.hbs'),
+    loadTemplates('hbs/project_index.hbs')
   }  
 });
 
