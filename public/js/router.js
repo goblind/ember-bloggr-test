@@ -47,6 +47,12 @@ App.PostsRoute = Ember.Route.extend({
   }
 });
 
+App.PostsIndexRoute = Ember.Route.extend({
+  model: function() {    
+    return this.get('store').find('post');
+  }
+});
+
 App.PostRoute = Ember.Route.extend({
   model: function(params) {    
     return this.get('store').find('post', params.post_id);
@@ -101,3 +107,13 @@ App.ProjectInfoRoute = Ember.Route.extend({
   model: function(params) {    
   }
 });
+
+App.ProjectIndexRoute = Ember.Route.extend({
+  model: function(params) {    
+    return this.get('store').find('post', params.post_id);
+  }
+});
+
+
+
+

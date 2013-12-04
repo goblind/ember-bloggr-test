@@ -1,13 +1,11 @@
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
-  	<a class="brand" href="#">{{title}}</a>
-    <ul class="nav">
-      {{!-- <li>{{#link-to 'info' primaryProject}}Info{{/link-to}}</li> --}}
-      {{!-- <li>{{#link-to 'project.notes' primaryProject}}Notes{{/link-to}}</li>       --}}
+  	<a class="brand">{{title}}</a>
+    <ul class="nav">      
       {{#if model}}
-		      <li>{{#link-to 'project.info' model}}Info{{/link-to}}</li>		      
-		      <li>{{#link-to 'project.notes' model}}Notes{{/link-to}}</li>
-		{{else}}
+		    <li>{{#link-to 'project.info' model}}Info{{/link-to}}</li>		      
+		    <li>{{#link-to 'project.notes' model}}Notes{{/link-to}}</li>
+		  {{else}}
 		    <li></li>
 		{{/if}}
     </ul>

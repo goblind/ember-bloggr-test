@@ -5,13 +5,14 @@ App = Ember.Application.create({
     loadTemplates('hbs/about.hbs'),
     loadTemplates('hbs/post_edit.hbs'),
     loadTemplates('hbs/posts_new.hbs'),
+    loadTemplates('hbs/posts_index.hbs'),
     loadTemplates('hbs/projects.hbs'),
     loadTemplates('hbs/projects.hbs'),
+    loadTemplates('hbs/projects_new.hbs'), 
     loadTemplates('hbs/project.hbs'),    
     loadTemplates('hbs/project_info.hbs'),
     loadTemplates('hbs/project_notes.hbs'),
-    loadTemplates('hbs/project_edit.hbs'),
-    loadTemplates('hbs/projects_new.hbs'),
+    loadTemplates('hbs/project_edit.hbs'),       
     loadTemplates('hbs/project_index.hbs')
   }  
 });

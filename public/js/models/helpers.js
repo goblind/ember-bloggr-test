@@ -9,3 +9,9 @@ Ember.Handlebars.helper('format-date', function(date) {
     return moment(date).fromNow();
   }
 });
+
+Ember.Handlebars.helper('format-date-complete', function(date) {
+	if (date) {
+		return moment(date).format('LL');
+	}
+});

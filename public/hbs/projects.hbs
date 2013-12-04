@@ -8,7 +8,7 @@
         </thead>
         {{#each model}}
         <tr><td>
-            {{#link-to 'project' this}}{{title}}{{/link-to}}            
+            {{#link-to 'project' this}}{{title}} <small class='muted'>on {{format-date-complete date}}</small>{{/link-to}}
         </td></tr>
         {{/each}}
       </table>
