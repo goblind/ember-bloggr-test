@@ -35,10 +35,11 @@ App.PostsNewRoute = Ember.Route.extend({
 App.PostsRoute = Ember.Route.extend({
   model: function() {    
     return this.get('store').find('post');
-  },
-  actions: {
-    doneEditing: function() {           
-      this.controllerFor('post').send('finishedEditing');      
+  }, 
+  actions: {    
+    //AFTER EDITING DATE GOES TO NULL
+    doneEditing: function() {      
+      this.controllerFor('post').send('finishedEditing');               
       this.get('controller.model').save();  
     },
     cancelEditing: function() {      
